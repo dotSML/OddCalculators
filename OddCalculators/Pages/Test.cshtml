@@ -1,0 +1,36 @@
+﻿@page
+@using System.Net
+@using Models
+@using Newtonsoft.Json
+@using Services
+@model OddCalculators.Pages.TestModel
+@inject IWeatherService weatherService
+@{
+    ViewData["Title"] = "Test";
+}
+
+ @{
+     var client = new WebClient();
+     var weatherJson = client.DownloadString("http://api.openweathermap.org/data/2.5/weather?q=Tallinn&appid=8478be516a1315ab6d07fa84f4666b54&units=metric");
+     var weather = JsonConvert.DeserializeObject<OpenWeatherResponse>(weatherJson);
+ }
+
+
+
+<h2>Test</h2>
+<p>@weather.Name</p>
+<p>@weather.Main.Temp</p>
+
+
+<h2>WeatherService</h2>
+<p>@{
+       foreach (var weathers in weatherService.ReadWeather())
+       {
+            @weathers.Name <br/>
+           @weathers.Temperature <span>°C</span>
+
+
+       }
+   }</p>
+
+

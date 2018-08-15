@@ -1,0 +1,23 @@
+﻿@page
+@model OddCalculators.Pages.CarsModel
+@{
+    ViewData["Title"] = "Cars";
+}
+
+<h2>Cars</h2>
+<p>These cars are retrived from /GetCars API, which is a Razor Page serving JSON</p>
+
+<ul id="car-list"></ul>
+<script src="~/lib/js/jquery.js"></script>
+<script type="text/javascript">
+    $(function () {
+        $.get('/GetCars/').done(function (cars) {
+            $.each(cars, function (i, car) {
+                var item = `<li>
+                            <strong>${car.make} ${car.model}</strong>
+                            (£${car.price})</li>`;
+                $('#car-list').append(item);
+            });
+        });
+    });
+</script>
