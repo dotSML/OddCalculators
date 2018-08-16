@@ -7,8 +7,10 @@ namespace OddCalculators.Models
 {
     public class CompoundInterest
     {
-        public int a { get; set; }
-        public int b { get; set; }
-        public int Result { get; set; }
+        public double A { get; set; }
+        public double P { get; set; }
+        public double R { get; set; }
+        public int N { get; set; }
+        public int T { get; set; }
     }
 }

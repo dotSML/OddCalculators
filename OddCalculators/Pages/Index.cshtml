@@ -2,19 +2,27 @@
 @using Services
 @model IndexModel
 @{
-    ViewData["Title"] = "Home page";
+    ViewData["Title"] = "Home";
 }
 <link href="~/lib/css/typewriter.css" rel="stylesheet" />
 <link href="~/lib/css/fade.css" rel="stylesheet" />
 
+@*<link href="~/lib/css/video.css" rel="stylesheet" />
+<video playsinline autoplay muted loop id="bgvid">
+    <source src="~/images/videos/4K%20HD%20Drone%20Footage%20of%20the%20Space%20Needle,%20Seattle.mp4" type="video/mp4" />
+</video>*@
 
 <div class="container">
-    <div class="typewriter">
-        <h1 class="mt-5">Welcome to OddCalculators!</h1>
-    </div>    
-    <div class="animate fadeInUp three">
-        <p>This is a website for testing all sorts of things.
-            Made with ASP.NET Core 2.1 and Bootstrap 4. <br/>The functionality is somewhat basic, but improving day by day.</p>
+    <div class="jumbotron">
+        <div class="typewriter">
+            <h1 class="mt-5">Welcome to OddCalculators!</h1>
+        </div>
+        <div class="animate fadeInUp three">
+            <p>
+                This is a website for testing all sorts of things.
+                Made with ASP.NET Core 2.1 and Bootstrap 4. <br />The functionality is still somewhat basic, but improving day by day.
+            </p>
+        </div>
     </div>
 </div>
 

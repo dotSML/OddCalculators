@@ -8,29 +8,8 @@
 @{
     ViewData["Title"] = "Test";
 }
-
- @{
-     var client = new WebClient();
-     var weatherJson = client.DownloadString("http://api.openweathermap.org/data/2.5/weather?q=Tallinn&appid=8478be516a1315ab6d07fa84f4666b54&units=metric");
-     var weather = JsonConvert.DeserializeObject<OpenWeatherResponse>(weatherJson);
- }
-
-
-
-<h2>Test</h2>
-<p>@weather.Name</p>
-<p>@weather.Main.Temp</p>
-
-
-<h2>WeatherService</h2>
-<p>@{
-       foreach (var weathers in weatherService.ReadWeather())
-       {
-            @weathers.Name <br/>
-           @weathers.Temperature <span>°C</span>
-
-
-       }
-   }</p>
-
+<link href="~/lib/css/video.css" rel="stylesheet" />
+<video playsinline autoplay muted loop id="bgvid">
+    <source src="~/images/videos/4K%20HD%20Drone%20Footage%20of%20the%20Space%20Needle,%20Seattle.mp4" type="video/mp4" />
+</video>
 

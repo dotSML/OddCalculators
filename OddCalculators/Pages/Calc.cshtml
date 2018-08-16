@@ -5,12 +5,25 @@
     ViewData["Title"] = "Calculators";
 }
 
-<h2>Compound Interest</h2>
 
-<div class="container">
-<form method="post">
-    <input asp-for="Compound.a"/>
-    <input asp-for="Compound.b"/>
-    <button class="btn btn-dark" type="submit">Calculate</button> 
-</form>
+<div class="container" id="body">
+<div class="col-md-4 mt-5">
+    <div class="card">
+        <div class="card-header">
+            <h5>Compound Interest</h5>
+        </div>
+        <div class="card-body" >
+            <form method="post">
+                <label for="principal">Principal</label><input asp-for="Compound.P" class="form-control form-control-sm" style="width: 50%" id="principal"/>
+                <label for="timesCompounded">Times compounded per year</label><input asp-for="Compound.N" class="form-control form-control-sm" style="width: 50%" id="timesCompounded"/>
+                <label for="interest">Interest rate</label><input asp-for="Compound.R" class="form-control form-control-sm" style="width: 50%" id="interest"/>
+                <label for="time">Time in years</label><input asp-for="Compound.T" class="form-control form-control-sm" id="time" style="width: 50%"/> <br/>
+                <button class="btn btn-dark" type="submit" asp-page-handler="Compound">Calculate</button>
+                <span style="color: green;"> @Html.DisplayFor(x => x.Compound.A)</span>
+            </form>
+        </div>
+    </div>
+</div>
+    
+
 </div>

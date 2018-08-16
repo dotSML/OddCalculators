@@ -13,9 +13,16 @@ namespace OddCalculators.Pages
         [BindProperty]
         public CompoundInterest Compound { get; set; }
 
-        public async void OnPostAsync()
+        public async void OnPostCompoundAsync()
         {
-             Compound.Result = Compound.a + Compound.b;
+            Compound.R = Compound.R / 100;
+            var rDivN = Compound.R / Compound.N;
+            var nByT = Compound.N * Compound.T;
+            var brackets = (1 + rDivN);
+            var beforePower = nByT * brackets;
+            var beforePrincipal = Math.Pow(brackets, nByT);
+            Compound.A = Math.Round(Compound.P * beforePrincipal,2);
+
         }
     }
 }
