@@ -25,7 +25,7 @@ namespace OddCalculators.Pages
             Customer = await _context.Customers.FindAsync(id);
             if (Customer == null)
             {
-                return RedirectToPage("/Index");
+                return RedirectToPage("/Crud");
             }
             return Page();
         }
@@ -49,7 +49,7 @@ namespace OddCalculators.Pages
                 throw new Exception($"Customer {Customer.Id} not found", e);
             }
 
-            return RedirectToPage("/Index");
+            return RedirectToPage("/Crud");
         }
     }
 }

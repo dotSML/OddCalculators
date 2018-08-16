@@ -1,0 +1,16 @@
+﻿@page
+@using System.Security.AccessControl
+@model OddCalculators.Pages.CalcModel
+@{
+    ViewData["Title"] = "Calculators";
+}
+
+<h2>Compound Interest</h2>
+
+<div class="container">
+<form method="post">
+    <input asp-for="Compound.a"/>
+    <input asp-for="Compound.b"/>
+    <button class="btn btn-dark" type="submit">Calculate</button> 
+</form>
+</div>

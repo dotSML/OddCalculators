@@ -29,7 +29,7 @@ namespace OddCalculators.Pages
 
             _context.Customers.Add(Customer);
             await _context.SaveChangesAsync();
-            return RedirectToPage("/Index");
+            return RedirectToPage("/Crud");
         }
     }
 }

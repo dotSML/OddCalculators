@@ -10,31 +10,6 @@ namespace OddCalculators.Pages
 {
     public class IndexModel : PageModel
     {
-        private readonly OddDbContext _context;
-
-        public IndexModel(OddDbContext context)
-        {
-            _context = context;
-        }
-
-        public IList<Customer> Customers { get; private set; }
-
-        public async Task OnGetAsync()
-        {
-            Customers = await _context.Customers.AsNoTracking().ToListAsync();
-        }
-
-        public async Task<IActionResult> OnPostDelete(int id)
-        {
-            var customer = await _context.Customers.FindAsync(id);
-
-            if (customer != null)
-            {
-                _context.Customers.Remove(customer);
-                await _context.SaveChangesAsync();
-            }
-
-            return RedirectToPage();
-        }
+        
     }
 }

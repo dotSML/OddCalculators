@@ -33,6 +33,7 @@ namespace OddCalculators
                 options.UseInMemoryDatabase("Database"));
             services.AddTransient<ICarService, CarService>();
             services.AddTransient<IWeatherService, WeatherService>();
+            services.AddTransient<ITimeService, TimeService>();
             services.AddHttpClient();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }

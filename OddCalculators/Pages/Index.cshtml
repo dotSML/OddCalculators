@@ -4,34 +4,19 @@
 @{
     ViewData["Title"] = "Home page";
 }
+<link href="~/lib/css/typewriter.css" rel="stylesheet" />
+<link href="~/lib/css/fade.css" rel="stylesheet" />
 
-<form method="post">
-    <table class="table">
-        <thead>
-        <tr>
-            <th>ID</th>
-            <th>Name</th>
-        </tr>
-        </thead>
-        <tbody>
-        @foreach (var customer in Model.Customers)
-        {
-            <tr>
-                <td>@customer.Id</td>
-                <td>@customer.Name</td>
-                <td>
-                    <a class="btn btn-secondary" asp-page="./Edit" asp-route-id="@customer.Id">Edit</a>
-                    <button type="submit" asp-page-handler="delete"
-                            asp-route-id="@customer.Id" class="btn btn-danger">
-                        Delete
-                    </button>
-                </td>
-            </tr>
-        }
-        </tbody>
-    </table>
-    <a class="btn btn-primary" asp-page="./Create">Create</a>
-</form>
+
+<div class="container">
+    <div class="typewriter">
+        <h1 class="mt-5">Welcome to OddCalculators!</h1>
+    </div>    
+    <div class="animate fadeInUp three">
+        <p>This is a website for testing all sorts of things.
+            Made with ASP.NET Core 2.1 and Bootstrap 4. <br/>The functionality is somewhat basic, but improving day by day.</p>
+    </div>
+</div>
 
 
 
