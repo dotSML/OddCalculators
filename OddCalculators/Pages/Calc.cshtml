@@ -7,23 +7,40 @@
 
 
 <div class="container" id="body">
-<div class="col-md-4 mt-5">
-    <div class="card">
-        <div class="card-header">
-            <h5>Compound Interest</h5>
-        </div>
-        <div class="card-body" >
-            <form method="post">
-                <label for="principal">Principal</label><input asp-for="Compound.P" class="form-control form-control-sm" style="width: 50%" id="principal"/>
-                <label for="timesCompounded">Times compounded per year</label><input asp-for="Compound.N" class="form-control form-control-sm" style="width: 50%" id="timesCompounded"/>
-                <label for="interest">Interest rate</label><input asp-for="Compound.R" class="form-control form-control-sm" style="width: 50%" id="interest"/>
-                <label for="time">Time in years</label><input asp-for="Compound.T" class="form-control form-control-sm" id="time" style="width: 50%"/> <br/>
-                <button class="btn btn-dark" type="submit" asp-page-handler="Compound">Calculate</button>
-                <span style="color: green;"> @Html.DisplayFor(x => x.Compound.A)</span>
-            </form>
+    <div class="row">
+    <div class="col-md-4 mt-5">
+        <div class="card">
+            <div class="card-header">
+                <h5>Compound Interest</h5>
+            </div>
+            <div class="card-body">
+                <form method="post">
+                        <label for="principal">Principal</label><input asp-for="Compound.P" class="form-control form-control-sm" style="width: 50%" id="principal" />
+                        <label for="timesCompounded">Times compounded per year</label><input asp-for="Compound.N" class="form-control form-control-sm" style="width: 50%" id="timesCompounded" />
+                        <label for="interest">Interest rate</label><input asp-for="Compound.R" class="form-control form-control-sm" style="width: 50%" id="interest" />
+                        <label for="time">Time in years</label><input asp-for="Compound.T" class="form-control form-control-sm" id="time" style="width: 50%" /> <br />
+                        <button class="btn btn-dark" type="submit" asp-page-handler="Compound">Calculate</button> <span> </span>
+                        <span style="color: green;"> @Html.DisplayFor(x => x.Compound.A)</span>
+                    </form>
+            </div>
         </div>
     </div>
+    <div class="col-md-4 mt-5">
+        <div class="card">
+            <div class="card-header">
+                <h5>Carbs</h5>
+            </div>
+            <div class="card-body">
+                <form method="post">
+                    <label for="Amount">Food quantity in grams</label><input asp-for="Carbs.Amount" class="form-control form-control-sm" style="width: 50%" id="amount" />
+                    <label for="carbsPer100">Carb content in 100g</label><input asp-for="Carbs.CarbsPer100" class="form-control form-control-sm" style="width: 50%" id="carbsPer100" /><br />
+                    <button class="btn btn-dark" type="submit" asp-page-handler="Carbs">Calculate</button>  <span> </span>
+                        <span style="color: green;"> @Html.DisplayFor(x => x.Carbs.CarbsResult)g</span>
+                </form>
+            </div>
+        </div>
+    </div>
+  </div>
 </div>
     
 
-</div>

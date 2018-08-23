@@ -1,4 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Collections.Generic;
+using System.Web;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace OddCalculators
 {

@@ -13,7 +13,20 @@ namespace OddCalculators.Pages
         [BindProperty]
         public CompoundInterest Compound { get; set; }
 
+        [BindProperty]
+        public Carbs Carbs { get; set; }
+
         public async void OnPostCompoundAsync()
+        {
+            Compound.A = await Task.Run(() => CalculateCompound());
+        }
+
+        public async void OnPostCarbs()
+        {
+            Carbs.CarbsResult = await Task.Run(() => CalculateCarbs());
+        }
+
+        public double CalculateCompound()
         {
             Compound.R = Compound.R / 100;
             var rDivN = Compound.R / Compound.N;
@@ -21,8 +34,12 @@ namespace OddCalculators.Pages
             var brackets = (1 + rDivN);
             var beforePower = nByT * brackets;
             var beforePrincipal = Math.Pow(brackets, nByT);
-            Compound.A = Math.Round(Compound.P * beforePrincipal,2);
+            return Math.Round(Compound.P * beforePrincipal, 2);
+        }
 
+        public double CalculateCarbs()
+        {
+           return (Carbs.Amount * Carbs.CarbsPer100) / 100;
         }
     }
 }
