@@ -34,6 +34,7 @@ namespace OddCalculators
             services.AddTransient<ICarService, CarService>();
             services.AddTransient<IWeatherService, WeatherService>();
             services.AddTransient<ITimeService, TimeService>();
+            services.AddTransient<IGlobalizationService, GlobalizationService>();
             services.AddHttpClient();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }

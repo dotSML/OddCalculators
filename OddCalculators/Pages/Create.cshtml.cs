@@ -6,44 +6,34 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using OddCalculators.Services;
 
 namespace OddCalculators.Pages
 {
     public class CreateModel : PageModel
     {
+        private readonly IGlobalizationService _globalizationService;
+
+
+        [BindProperty]
+        public Customer Customer { get; set; }
+
         private readonly OddDbContext _context;
 
-        public CreateModel(OddDbContext context)
+
+        public CreateModel(OddDbContext context, IGlobalizationService globalizationService)
         {
             _context = context;
+            _globalizationService = globalizationService;
         }
 
         public void OnGet()
         {
-            Dictionary<string, string> CountryList()
-            {
-                Dictionary<string, string> cultureList = new Dictionary<string, string>();
-
-                CultureInfo[] getCultureInfo = CultureInfo.GetCultures(CultureTypes.SpecificCultures);
-
-                foreach (CultureInfo getCulture in getCultureInfo)
-                {
-                    RegionInfo getRegionInfo = new RegionInfo(getCulture.LCID);
-
-                    if (!(cultureList.ContainsKey(getRegionInfo.Name)))
-                    {
-                        cultureList.Add(getRegionInfo.Name, getRegionInfo.EnglishName);
-                    }
-                }
-                return cultureList;
-            }
-
-            
+            _globalizationService.PopulateCountriesDropdown();
 
         }
 
-        [BindProperty]
-        public Customer Customer { get; set; }
+        
 
         public async Task<IActionResult> OnPostAsync()
         {
@@ -56,5 +46,7 @@ namespace OddCalculators.Pages
             await _context.SaveChangesAsync();
             return RedirectToPage("/Crud");
         }
+
+        
     }
 }

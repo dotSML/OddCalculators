@@ -4,18 +4,22 @@
     ViewData["Title"] = "Edit";
 }
 
-<h2>Edit Customer - @Model.Customer.Id</h2>
+<div class="container">
+    <div class="col-sm-8 mt-5">
+        <h2>Edit Customer - ID: @Model.Customer.Id</h2>
 
-<form method="post">
-    <input asp-for="Customer.Id" type="hidden"/>
-    <div>
-        <label asp-for="Customer.Name"></label>
-        <div>
-            <input asp-for="Customer.Name"/>
-        </div>
+        <form method="post">
+            <input asp-for="Customer.Id" type="hidden" />
+            <div>
+                <label asp-for="Customer.Name"></label>
+                <div>
+                    <input asp-for="Customer.Name" class="form-control" /> <br />
+                    @*@Html.DropDownListFor(m => m.Customer.Country, new SelectList(Model.CountryList), "Choose Your Country", new { @class = "form-control" })*@
+                </div>
+            </div>
+            <div>
+                <button class="btn btn-primary" type="submit">Save</button>
+            </div>
+        </form>
     </div>
-    <div>
-        <button type="submit">Save</button>
-    </div>
-</form>
-
+</div>

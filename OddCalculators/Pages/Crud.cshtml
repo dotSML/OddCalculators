@@ -5,30 +5,36 @@
     ViewData["Title"] = "CRUD";
 }
 
-<form method="post">
-    <table class="table">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Name</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var customer in Model.Customers)
-            {
-                <tr>
-                    <td>@customer.Id</td>
-                    <td>@customer.Name</td>
-                    <td>
-                        <a class="btn btn-secondary" asp-page="./Edit" asp-route-id="@customer.Id">Edit</a>
-                        <button type="submit" asp-page-handler="delete"
-                                asp-route-id="@customer.Id" class="btn btn-danger">
-                            Delete
-                        </button>
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
-    <a class="btn btn-primary" asp-page="./Create">Create</a>
-</form>
+<div class="container">
+    <div class="col-sm-8 mt-5">
+        <form method="post">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Country</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var customer in Model.Customers)
+                    {
+                        <tr>
+                            <td>@customer.Id</td>
+                            <td>@customer.Name</td>
+                            <td>@customer.Country</td>
+                            <td>
+                                <a class="btn btn-secondary" asp-page="./Edit" asp-route-id="@customer.Id">Edit</a>
+                                <button type="submit" asp-page-handler="delete"
+                                        asp-route-id="@customer.Id" class="btn btn-danger">
+                                    Delete
+                                </button>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            <a class="btn btn-primary" asp-page="./Create">Create</a>
+        </form>
+    </div>
+</div>
