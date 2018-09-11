@@ -1,5 +1,7 @@
 ﻿@page
+@using Services
 @model OddCalculators.Pages.CreateModel
+@inject OddCalculators.Services.IGlobalizationService global
 
 
 @{
@@ -18,8 +20,9 @@
                 <input asp-for="Customer.Name" placeholder="Enter Name" class="form-control"/>
             </div> 
             <label for="CountryList">Country</label>
-            @*@Html.DropDownListFor(m => m.Customer.Country, new SelectList(CountryList),"Choose Your Country" ,new { @class="form-control"}) <br />*@
-            <button type="submit" class="btn btn-primary">Save</button>
-    </div>
+            @Html.DropDownListFor(m => m.Customer.Country, new SelectList(global.PopulateCountriesDropdown()),"Choose Your Country" ,new { @class="form-control", id = "Country"}) <br />
+        <button type="submit" class="btn btn-primary">Save</button>
         </form>
+    </div>
+        
 </div>

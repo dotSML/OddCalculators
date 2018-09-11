@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -12,24 +13,19 @@ namespace OddCalculators.Pages
 {
     public class CreateModel : PageModel
     {
-        private readonly IGlobalizationService _globalizationService;
-
-
         [BindProperty]
         public Customer Customer { get; set; }
 
         private readonly OddDbContext _context;
 
 
-        public CreateModel(OddDbContext context, IGlobalizationService globalizationService)
+        public CreateModel(OddDbContext context)
         {
             _context = context;
-            _globalizationService = globalizationService;
         }
 
         public void OnGet()
         {
-            _globalizationService.PopulateCountriesDropdown();
 
         }
 

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace OddCalculators.Services
 {
@@ -33,5 +34,7 @@ namespace OddCalculators.Services
             CountryList = tempList;
             return CountryList;
         }
+
+        
     }
 }

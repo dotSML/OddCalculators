@@ -10,11 +10,13 @@ namespace OddCalculators
         public int Id { get; set; }
 
         [Required, StringLength(50)]
+        [Display(Name = "Name")]
         public string Name { get; set; }
 
         [Required]
+        [Display(Name = "Country")]
         public string Country { get; set; }
 
-        
+
     }
 }

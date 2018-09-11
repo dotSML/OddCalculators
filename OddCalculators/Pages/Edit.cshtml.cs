@@ -16,7 +16,9 @@ namespace OddCalculators.Pages
         {
             _context = context;
         }
-        
+
+        public List<string> Countries { get; set; }
+
         [BindProperty]
         public Customer Customer { get; set; }
 

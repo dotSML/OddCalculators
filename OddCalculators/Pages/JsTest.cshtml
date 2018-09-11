@@ -1,0 +1,29 @@
+﻿@page
+@model OddCalculators.Pages.JsTestModel
+@{
+    ViewData["Title"] = "JsTest";
+}
+
+<h2>JsTest</h2>
+
+
+<script>
+    $("button").click(function() {
+        $.ajax({
+            type: "GET",
+            url: "/JsTest/OnGetAjax",
+            contentType: "application/json",
+            dataType: "json",
+            success: (function(response) {
+                alert(response);
+            })
+        });
+
+    });
+    
+</script>
+
+
+
+<button type="button">Get External Content</button>
+
