@@ -1,45 +1,106 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Newtonsoft.Json;
 using OddCalculators.Models;
 
 namespace OddCalculators.Pages
 {
     public class CalcModel : PageModel
     {
-        [BindProperty]
-        public CompoundInterest Compound { get; set; }
-
-        [BindProperty]
-        public Carbs Carbs { get; set; }
-
-        public async void OnPostCompoundAsync()
+        public ActionResult OnPostCalcCompound()
         {
-            Compound.A = await Task.Run(() => CalculateCompound());
-        }
+            decimal compoundR = 0;
+            decimal compoundN = 0;
+            decimal compoundP = 0;
+            decimal compoundT = 0;
+            {
+                MemoryStream stream = new MemoryStream();
+                Request.Body.CopyTo(stream);
+                stream.Position = 0;
+                using (StreamReader reader = new StreamReader(stream))
+                {
+                    string requestBody = reader.ReadToEnd();
+                    if (requestBody.Length > 0)
+                    {
+                        var obj = JsonConvert.DeserializeObject<CompoundData>(requestBody);
+                        if (obj != null)
+                        {
+                            compoundR = obj.CompoundR;
+                            compoundN = obj.CompoundN;
+                            compoundT = obj.CompoundT;
+                            compoundP = obj.CompoundP;
+                        }
+                    }
+                }
+            }
 
-        public async void OnPostCarbs()
-        {
-            Carbs.CarbsResult = await Task.Run(() => CalculateCarbs());
-        }
-
-        public double CalculateCompound()
-        {
-            Compound.R = Compound.R / 100;
-            var rDivN = Compound.R / Compound.N;
-            var nByT = Compound.N * Compound.T;
+            var compoundRby100 = compoundR / 100;
+            compoundR = compoundR / 100;
+            var rDivN = compoundR / compoundN;
+            var nByT = compoundN * compoundT;
             var brackets = (1 + rDivN);
             var beforePower = nByT * brackets;
-            var beforePrincipal = Math.Pow(brackets, nByT);
-            return Math.Round(Compound.P * beforePrincipal, 2);
+            decimal beforePrincipal = (decimal)Math.Pow((double)brackets, (double)nByT);
+            decimal compoundResult = Math.Round(compoundP * beforePrincipal, 2);
+            return new JsonResult(compoundResult);
         }
 
-        public double CalculateCarbs()
+        
+
+        
+
+
+        public ActionResult OnPostCarbCalc()
         {
-           return (Carbs.Amount * Carbs.CarbsPer100) / 100;
+            double carbAmountPost = 0;
+            double carbsPer100Post = 0;
+            {
+                MemoryStream stream = new MemoryStream();
+                Request.Body.CopyTo(stream);
+                stream.Position = 0;
+                using (StreamReader reader = new StreamReader(stream))
+                {
+                    string requestBody = reader.ReadToEnd();
+                    if (requestBody.Length > 0)
+                    {
+                        var obj = JsonConvert.DeserializeObject<CarbData>(requestBody);
+                        if (obj != null)
+                        {
+                            carbAmountPost = obj.CarbAmount;
+                            carbsPer100Post = obj.CarbsPer100;
+                        }
+                    }
+                }
+            }
+
+            var carbResult = (carbsPer100Post * carbAmountPost) / 100;
+            return new JsonResult(carbResult);
         }
     }
+
+    public class CompoundData
+    {
+        [Required]
+        public decimal CompoundN { get; set; }
+        [Required]
+        public decimal CompoundR { get; set; }
+        [Required]
+        public decimal CompoundT { get; set; }
+        [Required]
+        public decimal CompoundP { get; set; }
+    }
+
+
+    public class CarbData
+    {
+        public double CarbAmount { get; set; }
+        public double CarbsPer100 { get; set; }
+    }
+
 }

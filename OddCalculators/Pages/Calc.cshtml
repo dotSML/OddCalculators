@@ -8,39 +8,98 @@
 
 <div class="container" id="body">
     <div class="row">
-    <div class="col-md-4 mt-5">
-        <div class="card">
-            <div class="card-header">
-                <h5>Compound Interest</h5>
-            </div>
-            <div class="card-body">
-                <form method="post">
-                        <label for="principal">Principal</label><input asp-for="Compound.P" class="form-control form-control-sm" style="width: 50%" id="principal" />
-                        <label for="timesCompounded">Times compounded per year</label><input asp-for="Compound.N" class="form-control form-control-sm" style="width: 50%" id="timesCompounded" />
-                        <label for="interest">Interest rate</label><input asp-for="Compound.R" class="form-control form-control-sm" style="width: 50%" id="interest" />
-                        <label for="time">Time in years</label><input asp-for="Compound.T" class="form-control form-control-sm" id="time" style="width: 50%" /> <br />
-                        <button class="btn btn-dark" type="submit" asp-page-handler="Compound">Calculate</button> <span> </span>
-                        <span style="color: green;"> @Html.DisplayFor(x => x.Compound.A)</span>
+        <div class="col-md-4 mt-5">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Compound Interest</h5>
+                </div>
+                <div class="card-body">
+                    <form method="post">
+                        <label for="principal">Principal</label><input type="text" id="inputCompoundP" class="form-control form-control-sm" style="width: 50%" id="principal" />
+                        <label for="timesCompounded">Times compounded per year</label><input type="text" id="inputCompoundN" class="form-control form-control-sm" style="width: 50%" id="timesCompounded" />
+                        <label for="interest">Interest rate</label><input type="text" id="inputCompoundR" class="form-control form-control-sm" style="width: 50%" id="interest" />
+                        <label for="time">Time in years</label><input type="text" id="inputCompoundT" class="form-control form-control-sm" id="time" style="width: 50%" /> <br />
+                        <button class="btn btn-dark" type="button" id="compoundPost">Calculate</button> <span> </span>
+                        <span style="color: green; font-size: 25px"><div id="compoundResultTxt"></div> </span>
                     </form>
+                </div>
             </div>
         </div>
-    </div>
-    <div class="col-md-4 mt-5">
-        <div class="card">
-            <div class="card-header">
-                <h5>Carbs</h5>
-            </div>
-            <div class="card-body">
-                <form method="post">
-                    <label for="Amount">Food quantity in grams</label><input asp-for="Carbs.Amount" class="form-control form-control-sm" style="width: 50%" id="amount" />
-                    <label for="carbsPer100">Carb content in 100g</label><input asp-for="Carbs.CarbsPer100" class="form-control form-control-sm" style="width: 50%" id="carbsPer100" /><br />
-                    <button class="btn btn-dark" type="submit" asp-page-handler="Carbs">Calculate</button>  <span> </span>
-                        <span style="color: green;"> @Html.DisplayFor(x => x.Carbs.CarbsResult)g</span>
-                </form>
+        <div class="col-md-4 mt-5">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Carbs</h5>
+                </div>
+                <div class="card-body">
+                    <form method="post">
+                        <label for="Amount">Food quantity in grams</label><input type="text" id="amountTxt" class="form-control form-control-sm" style="width: 50%" id="amount" />
+                        <label for="carbsPer100">Carb content in 100g</label><input type="text" id="carbsPer100Txt" class="form-control form-control-sm" style="width: 50%" id="carbsPer100" /><br />
+                        <button class="btn btn-dark" type="button" id="carbsPost">Calculate</button>  <span> </span>
+                        <span style="color: green; font-size: 25px"><div id="carbResultTxt"></div></span>
+                    </form>
+                </div>
             </div>
         </div>
-    </div>
-  </div>
-</div>
-    
+    </div> 
+</div> 
 
+
+<script>
+    $('#carbsPost').on('click', function () {
+        var carbAmount = $('#amountTxt').val();
+        var carbsPer100 = $('#carbsPer100Txt').val();
+        $.ajax({
+            type: "POST",
+            url: "/Calc?handler=CarbCalc",
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader("XSRF-TOKEN",
+                    $('input:hidden[name="__RequestVerificationToken"]').val());
+            },
+            data: JSON.stringify({
+                CarbAmount: carbAmount,
+                CarbsPer100: carbsPer100
+            }),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (response) {
+                $('#carbResultTxt').html(response + "g");
+
+            },
+            failure: function (response) {
+                alert(response);
+            }
+        });
+    })
+</script>
+
+<script>
+    $('#compoundPost').on('click', function () {
+        var compoundN = $('#inputCompoundN').val();
+        var compoundR = $('#inputCompoundR').val();
+        var compoundT = $('#inputCompoundT').val();
+        var compoundP = $('#inputCompoundP').val();
+        $.ajax({
+            type: "POST",
+            url: "/Calc?handler=CalcCompound",
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader("XSRF-TOKEN",
+                    $('input:hidden[name="__RequestVerificationToken"]').val());
+            },
+            data: JSON.stringify({
+                CompoundN: compoundN,
+                CompoundR: compoundR,
+                CompoundP: compoundP,
+                CompoundT: compoundT
+            }),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (response) {
+                $('#compoundResultTxt').html(response);
+
+            },
+            failure: function (response) {
+                alert(response);
+            }
+        });
+    })
+</script>

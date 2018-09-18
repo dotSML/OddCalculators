@@ -6,40 +6,6 @@
 
 <h2>JsTest</h2>
 
-<script>
-    $.ajax({
-        type: "GET",
-        url: "/Jstest?handler=List",
-        contentType: "application/json",
-        dataType: "json",
-        success: function (response) {
-            var dvItems = $("#dvItems");
-            dvItems.empty();
-            $.each(response, function (i, item) {
-                var $tr = $('<li>').append(item).appendTo(dvItems);
-            });
-        },
-        failure: function (response) {
-            alert(response);
-        }
-    });
-</script>
-
-
-<script>
-    function greeter(person) {
-        return "Hello, " + person;
-    }
-
-    let user = "Jane User";
-
-    document.getElementById("test").innerHTML = greeter(user);
-</script>
-
-<div id="dvItems" style="font-size:24px;">
-</div>
-
-<div id="test"></div>
 
 
 
