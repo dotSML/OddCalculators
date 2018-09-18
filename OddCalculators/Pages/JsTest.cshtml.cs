@@ -9,9 +9,15 @@ namespace OddCalculators.Pages
 {
     public class JsTestModel : PageModel
     {
-        public JsonResult OnGetAjax()
+        public JsonResult OnGetList()
         {
-            return new JsonResult("HELLO!");
+            List<string> lstString = new List<string>
+        {
+            "Val 1",
+            "Val 2",
+            "Val 3"
+        };
+            return new JsonResult(lstString);
         }
     }
 }
