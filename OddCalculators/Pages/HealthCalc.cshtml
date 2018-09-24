@@ -1,0 +1,51 @@
+﻿@page
+@model OddCalculators.Pages.HealthCalcModel
+@{
+    ViewData["Title"] = "HealthCalc";
+}
+
+
+<div class="col-md-4 mt-5">
+    <div class="card">
+        <div class="card-header">
+            <h5>Carbs</h5>
+        </div>
+        <div class="card-body">
+            <form method="post">
+                <label for="Amount">Food quantity in grams</label><input type="text" id="amountTxt" class="form-control form-control-sm" style="width: 50%" id="amount" />
+                <label for="carbsPer100">Carb content in 100g</label><input type="text" id="carbsPer100Txt" class="form-control form-control-sm" style="width: 50%" id="carbsPer100" /><br />
+                <button class="btn btn-dark" type="button" id="carbsPost">Calculate</button>  <span> </span>
+                <span style="color: green; font-size: 25px"><div id="carbResultTxt"></div></span>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    $('#carbsPost').on('click', function () {
+        var carbAmount = $('#amountTxt').val();
+        var carbsPer100 = $('#carbsPer100Txt').val();
+        $.ajax({
+            type: "POST",
+            url: "/HealthCalc?handler=CarbCalc",
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader("XSRF-TOKEN",
+                    $('input:hidden[name="__RequestVerificationToken"]').val());
+            },
+            data: JSON.stringify({
+                CarbAmount: carbAmount,
+                CarbsPer100: carbsPer100
+            }),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (response) {
+                $('#carbResultTxt').html(response + "g");
+
+            },
+            failure: function (response) {
+                alert(response);
+            }
+        });
+    })
+</script>
